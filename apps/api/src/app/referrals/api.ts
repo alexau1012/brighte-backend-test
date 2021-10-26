@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import prisma from '../prisma';
-import { validateReferrerData } from './validation';
+import { validateReferralData } from './validation';
 
 export const getAllReferrals = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -20,7 +20,7 @@ export const getReferralById = async (req: Request, res: Response, next: NextFun
     });
 
     if (!referral) {
-      res.status(404).json('Referrer ID does not exist');
+      res.status(404).json('Referral ID does not exist');
     }
   
     res.status(200).json(referral);
@@ -29,9 +29,9 @@ export const getReferralById = async (req: Request, res: Response, next: NextFun
   }
 };
 
-export const updateReferrerById = async (req: Request, res: Response, next: NextFunction) => {
+export const updateReferralById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const errors = await validateReferrerData(req);
+    const errors = await validateReferralData(req);
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -82,7 +82,7 @@ export const deleteReferralById = async (req: Request, res: Response, next: Next
 
 export const createReferral = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const errors = await validateReferrerData(req);
+    const errors = await validateReferralData(req);
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

@@ -2,7 +2,7 @@ import prisma from '../prisma';
 import { check, validationResult } from 'express-validator';
 import { Request } from 'express';
 
-export const validateReferrerData = async (req: Request) => {
+export const validateReferralData = async (req: Request) => {
     await check('givenName', 'Given name is required and must be between 2 to 200 characters long').isLength({ min: 2, max: 200 }).run(req);
 
     await check('surName', 'Surname is required and must be between 2 to 200 characters long').isLength({ min: 2, max: 200 }).run(req);

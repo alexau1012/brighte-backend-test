@@ -152,7 +152,7 @@ improvement ideas.
 
 Happy Coding 🧑‍💻
 
-In the project, I have added three additional REST API endpoints to the referrer API. These includes:
+In the project, I have added three additional REST API endpoints to the referral API. These includes:
 
 * Create a new referral.
 * Update an existing referral.
