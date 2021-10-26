@@ -151,3 +151,19 @@ Please add notes here. Also feel free to add any further thoughts on your implem
 improvement ideas.
 
 Happy Coding 🧑‍💻
+
+In the project, I have added three additional REST API endpoints to the referrer API. These includes:
+
+* Create a new referral.
+* Update an existing referral.
+* Delete a referral.
+
+The APIs are designed and implemented in a way that users can receive input data errors as soon as possible by validating the data first before attempting to access the database. 
+
+To further improve usability, a response would be sent back to the user on what needs to be corrected when invalid input data are received. For validation, I have chosen to use the 'express-validator' package since it can easily capture and send back multiple errors at once and therefore would allow the user to make all the necessary changes before submitting the next request.
+
+For each API requests, the status codes are kept consistent, but at the same time informative to the user where they can easily tell what is happening by a quick glance at the status code. Example includes, returning 404 errors on attempting to access non-existence records and returning 400 errors on invalid data inputs.
+
+To improve the durability of the referrals API, unit tests should be added to cover all expected and unexpected cases.
+
+In the future, when the application grows and may need to support various different APIs, it would be worthwhile to seperate the endpoints into a routes folder for better maintainability.
