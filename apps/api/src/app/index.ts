@@ -12,6 +12,6 @@ app.get('/referrals', referralsApi.getAllReferrals);
 app.post('/referrals', referralsApi.createReferral);
 app.get('/referrals/:id', referralsApi.getReferralById);
 app.patch('/referrals/:id', referralsApi.updateReferrerById);
-app.post('/referrals/:id/delete', referralsApi.postDeleteReferralById);
+app.post('/referrals/:id/delete', referralsApi.deleteReferralById);
 
 export default app;

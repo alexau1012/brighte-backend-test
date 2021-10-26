@@ -48,7 +48,7 @@ export const updateReferrerById = async (req: Request, res: Response, next: Next
   }
 };
 
-export const postDeleteReferralById = async (req: Request, res: Response, next: NextFunction) => {  
+export const deleteReferralById = async (req: Request, res: Response, next: NextFunction) => {  
   try {
     const { id }: { id?: number } = req.params;
 
