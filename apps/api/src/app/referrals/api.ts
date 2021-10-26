@@ -1,25 +1,37 @@
 import { NextFunction, Request, Response } from 'express';
 import prisma from '../prisma';
-import { validateData } from './validation';
+import { validateReferrerData } from './validation';
 
-export const getAllReferrals = async (req: Request, res: Response) => {
-  const referrals = await prisma.referral.findMany();
+export const getAllReferrals = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const referrals = await prisma.referral.findMany();
 
-  res.json(referrals);
+    res.json(referrals);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const getReferralById = async (req: Request, res: Response) => {
-  const { id }: { id?: number } = req.params;
-  const referral = await prisma.referral.findUnique({
-    where: { id: Number(id) },
-  });
+export const getReferralById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id }: { id?: number } = req.params;
+    const referral = await prisma.referral.findUnique({
+      where: { id: Number(id) },
+    });
 
-  res.json(referral);
+    if (!referral) {
+      res.status(404).json('Referrer ID does not exist');
+    }
+  
+    res.status(200).json(referral);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const updateReferrerById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const errors = await validateData(req);
+    const errors = await validateReferrerData(req);
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -44,6 +56,9 @@ export const updateReferrerById = async (req: Request, res: Response, next: Next
 
     res.status(200).json(updateReferral);
   } catch (err) {
+    if (err.code === 'P2025') {
+      res.status(404).json('Referrer ID does not exist');
+    }
     next(err);
   }
 };
@@ -63,11 +78,11 @@ export const deleteReferralById = async (req: Request, res: Response, next: Next
     }
     next(err);
   }
-}
+};
 
 export const createReferral = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const errors = await validateData(req);
+    const errors = await validateReferrerData(req);
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -91,4 +106,4 @@ export const createReferral = async (req: Request, res: Response, next: NextFunc
   } catch (err) {
     next(err);
   }
-}
+};
