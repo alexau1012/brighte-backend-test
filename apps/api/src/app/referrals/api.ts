@@ -57,7 +57,7 @@ export const updateReferralById = async (req: Request, res: Response, next: Next
     res.status(200).json(updateReferral);
   } catch (err) {
     if (err.code === 'P2025') {
-      res.status(404).json('Referrer ID does not exist');
+      res.status(404).json('Referral ID does not exist');
     }
     next(err);
   }
@@ -74,7 +74,7 @@ export const deleteReferralById = async (req: Request, res: Response, next: Next
     res.status(204).send();
   } catch (err) {
     if (err.code === 'P2025') {
-      res.status(404).json('Referrer ID does not exist');
+      res.status(404).json('Referral ID does not exist');
     }
     next(err);
   }
