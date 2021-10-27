@@ -13,9 +13,7 @@ export const validateReferralData = async (req: Request) => {
       const emailInUse = await prisma.referral.findFirst({
         where: { email: value },
       });
-      if (emailInUse) {
-        throw new Error();
-      }
+      if (emailInUse) throw new Error();
     }).run(req);
 
     await check('phone', 'Invalid Australia phone number').custom(async (value) => {
